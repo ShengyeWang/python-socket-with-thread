@@ -16,14 +16,15 @@ class ThreadSocket(object):
 		while True:
 			client, address = self.sock.accept()
 			client.settimeout(60)
-			try:
-				data = client.recv(1024)
-				if data:
-					client.send(data)
-				else:
-					raise error("Client has disconnected")
-			except:
-				client.close()
+			while True:
+				try:
+					data = client.recv(1024)
+					if data:
+						client.send(data)
+					else:
+						raise error("Client has disconnected")
+				except:
+					client.close()
 			
 if __name__ == '__main__':
 	server=ThreadSocket('',9000)
