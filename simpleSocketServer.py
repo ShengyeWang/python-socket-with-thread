@@ -5,6 +5,13 @@ class ThreadSocket(object):
 	"""
 	
 	"""
+	todo_list = {
+		'task_01':'see someone',
+		'task_02':'read book',
+		'task_03':'play basketball'
+
+	}
+
 	def __init__(self, host, port):
 		self.host = host
 		self.port = port
@@ -24,7 +31,9 @@ class ThreadSocket(object):
 			try:
 				data = client.recv(1024)
 				if data:
-					client.send(data)
+					#client.send(data)
+					response = str(self.todo_list)
+					client.send(response)
 				else:
 					raise error("Client has disconnected")
 			except:
