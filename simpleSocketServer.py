@@ -1,4 +1,5 @@
 import socket
+import threading
 
 class ThreadSocket(object):
 	"""
@@ -16,16 +17,19 @@ class ThreadSocket(object):
 		while True:
 			client, address = self.sock.accept()
 			client.settimeout(60)
-			while True:
-				try:
-					data = client.recv(1024)
-					if data:
-						client.send(data)
-					else:
-						raise error("Client has disconnected")
-				except:
-					client.close()
-			
+			threading.Thread(target=self.handleClientRequest, args=(client, address)).start()
+
+	def handleClientRequest(self, client, address):
+		while True:
+			try:
+				data = client.recv(1024)
+				if data:
+					client.send(data)
+				else:
+					raise error("Client has disconnected")
+			except:
+				client.close()
+		
 if __name__ == '__main__':
 	server=ThreadSocket('',9000)
 	server.listen()
