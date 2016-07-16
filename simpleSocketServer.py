@@ -32,7 +32,15 @@ class ThreadSocket(object):
 				data = client.recv(1024)
 				if data:
 					#client.send(data)
-					response = str(self.todo_list)
+					if 'GET' in data:
+						method,task_id,status = data.split('/')
+						result = self.todo_list.get(task_id,'no key match')
+						print 'result',result
+						response = str(result)
+					else:
+						response = 'data no found'
+
+					response = response+'\r\n'
 					client.send(response)
 				else:
 					raise error("Client has disconnected")
