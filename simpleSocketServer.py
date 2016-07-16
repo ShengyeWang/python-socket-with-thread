@@ -37,6 +37,11 @@ class ThreadSocket(object):
 						result = self.todo_list.get(task_id,'no key match')
 						print 'result',result
 						response = str(result)
+					elif 'POST' in data:
+						method,command,status = data.split('/')
+						key,value = command.split('=')
+						self.todo_list[key] = value
+						response = 'submit success'
 					else:
 						response = 'data no found'
 
