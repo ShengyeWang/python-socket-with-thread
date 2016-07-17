@@ -39,10 +39,11 @@ class ThreadSocket(object):
 					response=ClientRequestParser(data=data,db=local.todo_list).response()
 					client.send(response)
 				else:
-					raise error("Client has disconnected")
+					raise socket.error("Client has disconnected")
 			except Exception as e:
 				print 'Error: ',str(e)
 				client.close()
+				break
 		
 if __name__ == '__main__':
 	server=ThreadSocket('',9000)
