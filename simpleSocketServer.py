@@ -1,5 +1,6 @@
 import socket
 import threading
+from parser import ClientRequestParser
 
 class ThreadSocket(object):
 	"""
@@ -31,21 +32,7 @@ class ThreadSocket(object):
 			try:
 				data = client.recv(1024)
 				if data:
-					#client.send(data)
-					if 'GET' in data:
-						method,task_id,status = data.split('/')
-						result = self.todo_list.get(task_id,'no key match')
-						print 'result',result
-						response = str(result)
-					elif 'POST' in data:
-						method,command,status = data.split('/')
-						key,value = command.split('=')
-						self.todo_list[key] = value
-						response = 'submit success'
-					else:
-						response = 'data no found'
-
-					response = response+'\r\n'
+					response=ClientRequestParser(data=data,db=self.todo_list).response()
 					client.send(response)
 				else:
 					raise error("Client has disconnected")
