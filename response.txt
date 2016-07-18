@@ -1,0 +1,17 @@
+HTTP/1.1 OK
+Date: Mon, 18 Jul 2016 01:43:23 GMT
+Content-Type: text/html
+Content-Length: 215
+Connection: Keep-Alive
+Location: https://127.0.0.1:9000/
+Server: BWS/1.1
+X-UA-Compatible: IE=Edge,chrome=1
+
+<html>
+<head><title>302 Found</title></head>
+<body bgcolor="white">
+<center><h1>302 Found</h1></center>
+<hr><center>pr-nginx_1-0-284_BRANCH Branch
+Time : Wed Jul  6 10:57:30 CST 2016</center>
+</body>
+</html>

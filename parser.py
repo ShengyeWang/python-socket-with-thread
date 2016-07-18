@@ -44,4 +44,11 @@ class ClientRequestParser:
 			response = 'client request error'
 	
 		response=response+'\r\n'
-		return response
+		#return response
+		return self.make_response(response)
+
+	def make_response(self,response):
+		response=''
+		with open('response.txt') as p:
+			response=p.read()
+		return response	
